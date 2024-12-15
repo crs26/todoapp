@@ -1,0 +1,37 @@
+###
+POST http://localhost:8000/api/v1/token/ HTTP/1.1
+content-type: application/json
+
+{
+    "username":"chan",
+    "password":"chan"
+}
+
+###
+POST http://localhost:8000/api/v1/task/ HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM0Mjc0MzQ0LCJpYXQiOjE3MzQyNTYzNDQsImp0aSI6IjY0ODliYjg5ODQ3MjQ3ZGJiY2ZlN2QxMWI5NjQ4ZTIzIiwidXNlcl9pZCI6MX0.EL5WH-R_246_q0cHa97EybVjoW0F1Uv7B9k2Kauc8fk
+
+{
+    "title":"My Second Task"
+}
+
+###
+GET http://localhost:8000/api/v1/task HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM0MjQ5NzI5LCJpYXQiOjE3MzQyNDg4MjksImp0aSI6Ijg3YzgxNjQzMGNjMzQ1ZDg5MmNjYmU1ODc2ZTI1MjYwIiwidXNlcl9pZCI6MX0.MfiMqqOnaZ1NK4YCtAZQdOjCFG3ma6umDeF90cfcZV4
+
+
+###
+POST http://localhost:8000/api/v1/task/2/ HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM0Mjc0MzQ0LCJpYXQiOjE3MzQyNTYzNDQsImp0aSI6IjY0ODliYjg5ODQ3MjQ3ZGJiY2ZlN2QxMWI5NjQ4ZTIzIiwidXNlcl9pZCI6MX0.EL5WH-R_246_q0cHa97EybVjoW0F1Uv7B9k2Kauc8fk
+
+{
+    "description":"This is amazing"
+}
+
+###
+DELETE http://localhost:8000/api/v1/task/2/ HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM0Mjc0MzQ0LCJpYXQiOjE3MzQyNTYzNDQsImp0aSI6IjY0ODliYjg5ODQ3MjQ3ZGJiY2ZlN2QxMWI5NjQ4ZTIzIiwidXNlcl9pZCI6MX0.EL5WH-R_246_q0cHa97EybVjoW0F1Uv7B9k2Kauc8fk
+
