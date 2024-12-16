@@ -17,7 +17,7 @@ const NewTask = (props: Props) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     dispatch(addNewTask({ title, description }));
-    dispatch(fetchTasks());
+    dispatch(fetchTasks({ completed: null }));
     props.callback();
 
     // Reset title and description values.

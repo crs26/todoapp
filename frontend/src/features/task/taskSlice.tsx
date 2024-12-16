@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosRequestConfig } from "axios";
 
-const api: string = "https://dromic.csalvadora.com/api/";
+const api: string =
+  import.meta.env.API_ENDPOINT || "https://dromic.csalvadora.com/api/";
 
 export interface Task {
   id: number;
@@ -10,6 +11,10 @@ export interface Task {
   is_completed: boolean;
   dateCompleted: Date;
   dateCreated: Date;
+}
+
+interface Filter {
+  completed: boolean | null;
 }
 
 interface NewTask {
@@ -33,7 +38,7 @@ const initialState: TodoState = {
 // Async actions to interact with the backend API
 export const fetchTasks = createAsyncThunk(
   "todos/fetchTasks",
-  async (_, { getState }) => {
+  async (payload: Filter, { getState }) => {
     const state: any = getState(); // Access Redux state
     const token = state.auth.accessToken; // Get the token from auth state
 
@@ -44,7 +49,11 @@ export const fetchTasks = createAsyncThunk(
       },
     };
 
-    const response = await axios.get<Task[]>(api + "task/", config);
+    let urlParam = "";
+    if (payload.completed != null) {
+      urlParam = "?completed=" + payload.completed;
+    }
+    const response = await axios.get<Task[]>(`${api}task/${urlParam}`, config);
     return response.data;
   }
 );
@@ -120,6 +129,9 @@ const todoSlice = createSlice({
       );
       state.tasks[index] = action.payload;
     },
+    resetTasks(state) {
+      state.tasks = [];
+    },
   },
   extraReducers: (builder) => {
     // Fetch tasks
@@ -169,5 +181,5 @@ const todoSlice = createSlice({
 });
 
 // Exporting reducer
-export const { setTask } = todoSlice.actions;
+export const { setTask, resetTasks } = todoSlice.actions;
 export default todoSlice.reducer;

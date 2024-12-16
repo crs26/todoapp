@@ -5,14 +5,28 @@ import {
   deleteTask,
   Task,
   setTask,
+  fetchTasks,
 } from "../features/task/taskSlice";
 import { FaCheck, FaTrash } from "react-icons/fa";
 import { FcCancel } from "react-icons/fc";
+import { useEffect } from "react";
 
-const TaskTable = () => {
+interface Props {
+  completed: boolean | null;
+}
+
+const TaskTable = (props: Props) => {
   const dispatch: AppDispatch = useDispatch();
   const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
   const { tasks, loading } = useAppSelector((state) => state.task);
+
+  useEffect(() => {
+    if (props.completed != null) {
+      dispatch(fetchTasks({ completed: props.completed }));
+    } else {
+      dispatch(fetchTasks({ completed: null }));
+    }
+  }, []);
 
   const handleMarkAsCompleted = (task: Task) => {
     dispatch(updateTask({ ...task, is_completed: !task.is_completed }));

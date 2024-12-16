@@ -1,17 +1,21 @@
 import { useState } from "react";
 import NewTask from "./newTask";
 import TaskTable from "./taskTable";
+import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";
+import type { RootState, AppDispatch } from "../store";
+import { fetchTasks } from "../features/task/taskSlice";
 
 const Dashboard = () => {
+  const dispatch: AppDispatch = useDispatch();
   const [active, setActive] = useState("all");
 
   const render = () => {
     if (active == "todo") {
-      return <div>To Do</div>;
+      return <TaskTable completed={false} />;
     } else if (active == "all") {
-      return <TaskTable />;
+      return <TaskTable completed={null} />;
     } else if (active == "completed") {
-      return <div>Completed Task</div>;
+      return <TaskTable completed={true} />;
     } else if (active == "new") {
       return <NewTask callback={() => setActive("all")} />;
     }
@@ -27,19 +31,28 @@ const Dashboard = () => {
         </button>
         <button
           className="bg-blue-500 text-white font-bold py-2 px-4 rounded"
-          onClick={() => setActive("all")}
+          onClick={() => {
+            setActive("all");
+            dispatch(fetchTasks({ completed: null }));
+          }}
         >
           All
         </button>
         <button
           className="bg-blue-500 text-white font-bold py-2 px-4 rounded"
-          onClick={() => setActive("todo")}
+          onClick={() => {
+            setActive("todo");
+            dispatch(fetchTasks({ completed: false }));
+          }}
         >
           To Do
         </button>
         <button
           className="bg-blue-500 text-white font-bold py-2 px-4 rounded"
-          onClick={() => setActive("completed")}
+          onClick={() => {
+            setActive("completed");
+            dispatch(fetchTasks({ completed: true }));
+          }}
         >
           Completed
         </button>

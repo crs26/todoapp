@@ -12,7 +12,11 @@ class TaskAPIView(APIView):
 
     # GET method for retreiving tasks.
     def get(self, request, *args, **kwargs):
-        task = Task.objects.all()
+        task = Task.objects.filter(user=self.request.user).values()
+
+        filterCompleted = request.GET.get('completed', None)
+        if filterCompleted != None:
+            task = task.filter(is_completed=filterCompleted).values()
         serializer = TaskSerializer(task, many=True)
         return Response(serializer.data)
     
