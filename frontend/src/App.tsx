@@ -22,6 +22,7 @@ const App = () => {
       <h1>TaskTastic</h1>
       {loading && <p>Loading...</p>}
       {accessToken ? <Dashboard /> : <Login />}
+      {error ? "" : error}
 
       <p className="read-the-docs">Developed by csalvadora for MEDDICC</p>
     </>

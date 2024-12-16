@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
-import axios, { AxiosRequestConfig } from "axios";
+import axios from "axios";
 
 const api: string = "http://localhost:8000/api/";
 
