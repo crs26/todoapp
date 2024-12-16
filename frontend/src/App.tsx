@@ -1,32 +1,36 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import type { RootState } from './store'
+import { useSelector, useDispatch } from 'react-redux'
+import { fetchTasks } from './features/task/taskSlice'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const dispatch = useDispatch()
 
   return (
     <>
+      <h1>TaskTastic</h1>
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        
       </div>
-      <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+        <div className="flex flex-wrap gap-4">
+          <button className="bg-blue-500 text-white font-bold py-2 px-4 rounded">
+            Add a task
+          </button>
+          <button className="bg-blue-500 text-white font-bold py-2 px-4 rounded" onClick={() => dispatch(fetchTasks())}>
+            All
+          </button>
+          <button className="bg-blue-500 text-white font-bold py-2 px-4 rounded">
+            To Do
+          </button>
+          <button className="bg-blue-500 text-white font-bold py-2 px-4 rounded">
+            Completed
+          </button>
+        </div>
       </div>
       <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
+        Developed by csalvadora for MEDDICC
       </p>
     </>
   )
