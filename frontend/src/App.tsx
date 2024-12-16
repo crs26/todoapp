@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import Cookies from "universal-cookie";
 import type { RootState, AppDispatch } from "./store";
 import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";
-import { fetchTasks } from "./features/task/taskSlice";
 import { setAuth } from "./features/auth/authSlice";
 import Login from "./components/login";
 import Dashboard from "./components/dashboard";

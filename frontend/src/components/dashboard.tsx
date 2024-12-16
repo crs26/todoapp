@@ -1,8 +1,8 @@
 import { useState } from "react";
 import NewTask from "./newTask";
 import TaskTable from "./taskTable";
-import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";
-import type { RootState, AppDispatch } from "../store";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../store";
 import { fetchTasks } from "../features/task/taskSlice";
 
 const Dashboard = () => {
