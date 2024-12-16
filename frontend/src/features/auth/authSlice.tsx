@@ -36,9 +36,15 @@ export const login = createAsyncThunk(
   async (payload: Credential, { rejectWithValue }) => {
     try {
       const response = await axios.post<LoginResponse>(api + "token/", payload);
-      cookies.set("accessToken", response.data.access, { path: "/" });
-      cookies.set("refreshToken", response.data.refresh, { path: "/" });
-      cookies.set("user", response.data.user, { path: "/" });
+      cookies.set("accessToken", response.data.access, {
+        path: "/",
+        maxAge: 3600,
+      });
+      cookies.set("refreshToken", response.data.refresh, {
+        path: "/",
+        maxAge: 3600,
+      });
+      cookies.set("user", response.data.user, { path: "/", maxAge: 3600 });
       return { ...response.data, user: payload.username };
     } catch (error: any) {
       return rejectWithValue(

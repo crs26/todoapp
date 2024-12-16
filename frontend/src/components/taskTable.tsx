@@ -1,6 +1,11 @@
 import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";
 import type { RootState, AppDispatch } from "../store";
-import { updateTask, deleteTask, Task } from "../features/task/taskSlice";
+import {
+  updateTask,
+  deleteTask,
+  Task,
+  setTask,
+} from "../features/task/taskSlice";
 import { FaCheck, FaTrash } from "react-icons/fa";
 import { FcCancel } from "react-icons/fc";
 
@@ -11,6 +16,7 @@ const TaskTable = () => {
 
   const handleMarkAsCompleted = (task: Task) => {
     dispatch(updateTask({ ...task, is_completed: !task.is_completed }));
+    dispatch(setTask({ ...task, is_completed: !task.is_completed }));
   };
 
   const handleDeleteTask = (id: number) => {
@@ -44,6 +50,7 @@ const TaskTable = () => {
                     <button
                       className="text-red-500 hover:text-red-700 mx-2"
                       onClick={() => handleMarkAsCompleted(task)}
+                      disabled={loading}
                     >
                       <FcCancel />
                     </button>
@@ -51,6 +58,7 @@ const TaskTable = () => {
                     <button
                       className="text-green-500 hover:text-green-700 mx-2"
                       onClick={() => handleMarkAsCompleted(task)}
+                      disabled={loading}
                     >
                       <FaCheck />
                     </button>
@@ -58,6 +66,7 @@ const TaskTable = () => {
                   <button
                     className="text-red-500 hover:text-red-700 mx-2"
                     onClick={() => handleDeleteTask(task.id)}
+                    disabled={loading}
                   >
                     <FaTrash />
                   </button>

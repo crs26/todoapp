@@ -3,7 +3,7 @@ import NewTask from "./newTask";
 import TaskTable from "./taskTable";
 
 const Dashboard = () => {
-  const [active, setActive] = useState("todo");
+  const [active, setActive] = useState("all");
 
   const render = () => {
     if (active == "todo") {
@@ -13,7 +13,7 @@ const Dashboard = () => {
     } else if (active == "completed") {
       return <div>Completed Task</div>;
     } else if (active == "new") {
-      return <NewTask />;
+      return <NewTask callback={() => setActive("all")} />;
     }
   };
   return (

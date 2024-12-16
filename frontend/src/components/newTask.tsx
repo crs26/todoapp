@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import type { RootState, AppDispatch } from "../store";
 import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";
-import { addNewTask } from "../features/task/taskSlice";
+import { addNewTask, fetchTasks } from "../features/task/taskSlice";
 
-const NewTask = () => {
+interface Props {
+  callback: Function;
+}
+const NewTask = (props: Props) => {
   const dispatch: AppDispatch = useDispatch();
   const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
   const { loading } = useAppSelector((state) => state.task);
@@ -14,6 +17,12 @@ const NewTask = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     dispatch(addNewTask({ title, description }));
+    dispatch(fetchTasks());
+    props.callback();
+
+    // Reset title and description values.
+    setTitle("");
+    setDescription("");
   };
 
   return (
@@ -60,7 +69,7 @@ const NewTask = () => {
           }`}
           disabled={loading}
         >
-          Create New Task
+          {loading ? "Loading ..." : "Create new task"}
         </button>
       </form>
     </div>

@@ -113,7 +113,14 @@ export const deleteTask = createAsyncThunk(
 const todoSlice = createSlice({
   name: "todos",
   initialState,
-  reducers: {},
+  reducers: {
+    setTask(state, action: PayloadAction<Task>) {
+      const index = state.tasks.findIndex(
+        (task) => task.id == action.payload.id
+      );
+      state.tasks[index] = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     // Fetch tasks
     builder.addCase(fetchTasks.pending, (state) => {
@@ -162,4 +169,5 @@ const todoSlice = createSlice({
 });
 
 // Exporting reducer
+export const { setTask } = todoSlice.actions;
 export default todoSlice.reducer;
