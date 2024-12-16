@@ -1,16 +1,16 @@
-import React from "react";
 import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";
 import type { RootState, AppDispatch } from "../store";
-import { fetchTasks, updateTask, deleteTask } from "../features/task/taskSlice";
+import { updateTask, deleteTask, Task } from "../features/task/taskSlice";
 import { FaCheck, FaTrash } from "react-icons/fa";
+import { FcCancel } from "react-icons/fc";
 
 const TaskTable = () => {
   const dispatch: AppDispatch = useDispatch();
   const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
   const { tasks, loading } = useAppSelector((state) => state.task);
 
-  const handleMarkAsCompleted = (id: number) => {
-    dispatch(updateTask(id));
+  const handleMarkAsCompleted = (task: Task) => {
+    dispatch(updateTask({ ...task, is_completed: !task.is_completed }));
   };
 
   const handleDeleteTask = (id: number) => {
@@ -40,12 +40,21 @@ const TaskTable = () => {
                   {task.description}
                 </td>
                 <td className="px-4 py-2 text-center">
-                  <button
-                    className="text-green-500 hover:text-green-700 mx-2"
-                    onClick={() => handleMarkAsCompleted(task.id)}
-                  >
-                    <FaCheck />
-                  </button>
+                  {task.is_completed ? (
+                    <button
+                      className="text-red-500 hover:text-red-700 mx-2"
+                      onClick={() => handleMarkAsCompleted(task)}
+                    >
+                      <FcCancel />
+                    </button>
+                  ) : (
+                    <button
+                      className="text-green-500 hover:text-green-700 mx-2"
+                      onClick={() => handleMarkAsCompleted(task)}
+                    >
+                      <FaCheck />
+                    </button>
+                  )}
                   <button
                     className="text-red-500 hover:text-red-700 mx-2"
                     onClick={() => handleDeleteTask(task.id)}

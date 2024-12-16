@@ -3,11 +3,11 @@ import axios, { AxiosRequestConfig } from "axios";
 
 const api: string = "http://localhost:8000/api/";
 
-interface Task {
+export interface Task {
   id: number;
   title: string;
   description: string;
-  isCompleted: boolean;
+  is_completed: boolean;
   dateCompleted: Date;
   dateCreated: Date;
 }
@@ -69,7 +69,7 @@ export const addNewTask = createAsyncThunk(
 
 export const updateTask = createAsyncThunk(
   "todos/updateTask",
-  async (id: number, { getState }) => {
+  async (task: Task, { getState }) => {
     const state: any = getState(); // Access Redux state
     const token = state.auth.accessToken; // Get the token from auth state
 
@@ -80,9 +80,13 @@ export const updateTask = createAsyncThunk(
       },
     };
 
-    const response = await axios.patch<Task>(
-      `${api}task/${id}`,
-      { completed: true },
+    const response = await axios.post<Task>(
+      `${api}task/${task.id}/`,
+      {
+        title: task.title,
+        description: task.description,
+        is_completed: task.is_completed,
+      },
       config
     );
     return response.data;
@@ -142,7 +146,7 @@ const todoSlice = createSlice({
       (state, action: PayloadAction<Task>) => {
         const task = state.tasks.find((task) => task.id === action.payload.id);
         if (task) {
-          task.isCompleted = action.payload.isCompleted;
+          task.is_completed = action.payload.is_completed;
         }
       }
     );
