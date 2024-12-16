@@ -3,3 +3,4 @@ djangorestframework
 environs
 python-decouple
 djangorestframework-simplejwt
+django-cors-headers

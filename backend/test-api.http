@@ -1,5 +1,5 @@
 ###
-POST http://localhost:8000/api/v1/token/ HTTP/1.1
+POST http://localhost:8000/api/token/ HTTP/1.1
 content-type: application/json
 
 {
@@ -18,7 +18,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
 
 ###
 GET http://localhost:8000/api/v1/task HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM0MjQ5NzI5LCJpYXQiOjE3MzQyNDg4MjksImp0aSI6Ijg3YzgxNjQzMGNjMzQ1ZDg5MmNjYmU1ODc2ZTI1MjYwIiwidXNlcl9pZCI6MX0.MfiMqqOnaZ1NK4YCtAZQdOjCFG3ma6umDeF90cfcZV4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM0MzQ2Mzg5LCJpYXQiOjE3MzQzMjgzODksImp0aSI6IjE3YzA5Nzc0NTEzNDRmMTRiMWJiNTc3MTlmMGE3ZWNhIiwidXNlcl9pZCI6MX0.QRYegpiwKB5_lyssrwTLQ9dKrI_6ZE2sybMS0P4WC3E
 
 
 ###
