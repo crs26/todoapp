@@ -51,7 +51,7 @@ export const fetchTasks = createAsyncThunk(
 
     let urlParam = "";
     if (payload.completed != null) {
-      urlParam = "?completed=" + payload.completed;
+      urlParam = payload.completed ? "?completed=True" : "?completed=False";
     }
     const response = await axios.get<Task[]>(`${api}task/${urlParam}`, config);
     return response.data;
