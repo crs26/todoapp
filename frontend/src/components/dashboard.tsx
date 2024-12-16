@@ -1,5 +1,6 @@
 import { useState } from "react";
 import NewTask from "./newTask";
+import TaskTable from "./taskTable";
 
 const Dashboard = () => {
   const [active, setActive] = useState("todo");
@@ -8,7 +9,7 @@ const Dashboard = () => {
     if (active == "todo") {
       return <div>To Do</div>;
     } else if (active == "all") {
-      return <div>All Task</div>;
+      return <TaskTable />;
     } else if (active == "completed") {
       return <div>Completed Task</div>;
     } else if (active == "new") {
