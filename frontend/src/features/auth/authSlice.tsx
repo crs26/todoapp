@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import Cookies from "universal-cookie";
 
 const api: string = "http://localhost:8000/api/";
-
+const cookies = new Cookies();
 interface Credential {
   username: string;
   password: string;
@@ -35,6 +36,9 @@ export const login = createAsyncThunk(
   async (payload: Credential, { rejectWithValue }) => {
     try {
       const response = await axios.post<LoginResponse>(api + "token/", payload);
+      cookies.set("accessToken", response.data.access, { path: "/" });
+      cookies.set("refreshToken", response.data.refresh, { path: "/" });
+      cookies.set("user", response.data.user, { path: "/" });
       return { ...response.data, user: payload.username };
     } catch (error: any) {
       return rejectWithValue(
@@ -47,7 +51,13 @@ export const login = createAsyncThunk(
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    setAuth(state, action: PayloadAction<LoginResponse>) {
+      state.accessToken = action.payload.access;
+      state.refreshToken = action.payload.refresh;
+      state.user = action.payload.user;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(login.pending, (state) => {
@@ -71,4 +81,5 @@ const authSlice = createSlice({
 });
 
 // Export reducer
+export const { setAuth } = authSlice.actions;
 export default authSlice.reducer;
