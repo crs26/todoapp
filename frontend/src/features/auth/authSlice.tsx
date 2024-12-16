@@ -2,7 +2,7 @@ import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import Cookies from "universal-cookie";
 
-const api: string = import.meta.env.API_ENDPOINT;
+const api: string = "http://dromic.csalvadora.com/api/";
 const cookies = new Cookies();
 interface Credential {
   username: string;
