@@ -2,7 +2,7 @@ import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import Cookies from "universal-cookie";
 
-const api: string = "http://localhost:8000/api/";
+const api: string = import.meta.env.API_ENDPOINT;
 const cookies = new Cookies();
 interface Credential {
   username: string;

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosRequestConfig } from "axios";
 
-const api: string = "http://localhost:8000/api/";
+const api: string = import.meta.env.API_ENDPOINT;
 
 export interface Task {
   id: number;
