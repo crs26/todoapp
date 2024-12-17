@@ -21,16 +21,26 @@ const TaskTable = (props: Props) => {
   const { tasks, loading } = useAppSelector((state) => state.task);
   const [searchKey, setSearchKey] = useState("");
 
+  // Reload the tasks by fetching from the api.
   useEffect(() => {
     if (props.completed != null) {
+      // Fetch the task depending on the comppleted props value.
       dispatch(fetchTasks({ completed: props.completed, search: searchKey }));
     } else {
+      // Fetch all task.
       dispatch(fetchTasks({ completed: null, search: searchKey }));
     }
   }, []);
 
+  // Reset the search input when changing tabs.
+  useEffect(() => {
+    setSearchKey("");
+  }, [tasks]);
+
   const handleMarkAsCompleted = (task: Task) => {
+    // Push the changes to backend only.
     dispatch(updateTask({ ...task, is_completed: !task.is_completed }));
+    // Update the redux state.
     dispatch(setTask({ ...task, is_completed: !task.is_completed }));
   };
 
@@ -51,12 +61,6 @@ const TaskTable = (props: Props) => {
         <div>
           <form onSubmit={handleSearch}>
             <div className="inline-flex" role="group">
-              {/* <label
-                className="block text-sm font-medium text-white mb-1"
-                htmlFor="username"
-              >
-                Search Task
-              </label> */}
               <input
                 type="text"
                 id="username"
