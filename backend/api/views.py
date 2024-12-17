@@ -4,6 +4,7 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from django.utils import timezone
+from django.db.models import Q
 from .serializer import TaskSerializer
 from .models import Task
 
@@ -17,6 +18,10 @@ class TaskAPIView(APIView):
         filterCompleted = request.GET.get('completed', None)
         if filterCompleted != None:
             task = task.filter(is_completed=filterCompleted).values()
+
+        searchKey = request.GET.get('search', None)
+        if searchKey != None:
+            task = task.filter(Q(title__icontains=searchKey) | Q(description__icontains=searchKey))
         serializer = TaskSerializer(task, many=True)
         return Response(serializer.data)
     

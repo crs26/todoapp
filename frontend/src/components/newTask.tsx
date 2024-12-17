@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import type { RootState, AppDispatch } from "../store";
 import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";
-import { addNewTask, fetchTasks } from "../features/task/taskSlice";
+import { addNewTask } from "../features/task/taskSlice";
 
 interface Props {
   callback: Function;
@@ -17,7 +17,6 @@ const NewTask = (props: Props) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     dispatch(addNewTask({ title, description }));
-    dispatch(fetchTasks({ completed: null }));
     props.callback();
 
     // Reset title and description values.

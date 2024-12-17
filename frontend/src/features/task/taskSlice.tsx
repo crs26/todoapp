@@ -15,6 +15,7 @@ export interface Task {
 
 interface Filter {
   completed: boolean | null;
+  search: string | null;
 }
 
 interface NewTask {
@@ -49,9 +50,13 @@ export const fetchTasks = createAsyncThunk(
       },
     };
 
-    let urlParam = "";
+    let urlParam = "?";
     if (payload.completed != null) {
-      urlParam = payload.completed ? "?completed=True" : "?completed=False";
+      urlParam += payload.completed ? "completed=True&" : "completed=False&";
+    }
+
+    if (payload.search != null) {
+      urlParam += `search=${payload.search}&`;
     }
     const response = await axios.get<Task[]>(`${api}task/${urlParam}`, config);
     return response.data;

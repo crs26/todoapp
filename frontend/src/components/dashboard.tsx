@@ -31,7 +31,7 @@ const Dashboard = () => {
       label: "All",
       callback: () => {
         setActive("all");
-        dispatch(fetchTasks({ completed: false }));
+        dispatch(fetchTasks({ completed: false, search: null }));
       },
     },
     {
@@ -39,7 +39,7 @@ const Dashboard = () => {
       label: "To Do",
       callback: () => {
         setActive("todo");
-        dispatch(fetchTasks({ completed: false }));
+        dispatch(fetchTasks({ completed: false, search: null }));
       },
     },
     {
@@ -47,7 +47,7 @@ const Dashboard = () => {
       label: "Completed",
       callback: () => {
         setActive("completed");
-        dispatch(fetchTasks({ completed: true }));
+        dispatch(fetchTasks({ completed: true, search: null }));
       },
     },
   ];
