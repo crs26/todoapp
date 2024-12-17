@@ -45,19 +45,32 @@ const TaskTable = (props: Props) => {
         <table className="min-w-full border-gray-300">
           <thead>
             <tr>
-              <th className="px-4 py-2 border-b text-left">Title</th>
-              <th className="px-4 py-2 border-b text-left">Description</th>
+              <th className="px-4 py-2 border-b text-center">Title</th>
+              <th className="px-4 py-2 border-b text-center">Description</th>
+              <th className="px-4 py-2 border-b text-center">Date</th>
               <th className="px-4 py-2 border-b text-center">Actions</th>
             </tr>
           </thead>
           <tbody>
             {tasks.map((task) => (
-              <tr key={task.id} className="hover:bg-gray-100">
+              <tr key={task.id} className="hover:bg-gray-700">
                 <td className="px-4 py-2 font-semibold text-white">
                   {task.title}
                 </td>
                 <td className="px-4 py-2 text-sm text-gray-300">
                   {task.description}
+                </td>
+                <td>
+                  <div>
+                    <div>
+                      <p className="text-xs text-gray-400 font-thin">
+                        Created: {task?.date_created?.toString()}
+                      </p>
+                    </div>
+                    <p className="text-xs text-gray-400 font-thin">
+                      Completed: {task?.date_completed?.toString() || "Not yet"}
+                    </p>
+                  </div>
                 </td>
                 <td className="px-4 py-2 text-center">
                   {task.is_completed ? (

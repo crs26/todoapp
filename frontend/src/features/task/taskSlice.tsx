@@ -9,8 +9,8 @@ export interface Task {
   title: string;
   description: string;
   is_completed: boolean;
-  dateCompleted: Date;
-  dateCreated: Date;
+  date_completed: Date;
+  date_created: Date;
 }
 
 interface Filter {

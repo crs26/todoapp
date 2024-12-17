@@ -5,57 +5,85 @@ import { useDispatch } from "react-redux";
 import type { AppDispatch } from "../store";
 import { fetchTasks } from "../features/task/taskSlice";
 
+interface Tab {
+  id: string;
+  label: string;
+  callback: Function;
+}
+
 const Dashboard = () => {
   const dispatch: AppDispatch = useDispatch();
-  const [active, setActive] = useState("all");
+
+  // Component state for active tab.
+  // The default view is the list of pending task.
+  const [active, setActive] = useState("todo");
+
+  const tabs: Tab[] = [
+    {
+      id: "new",
+      label: "Add a task",
+      callback: () => {
+        setActive("new");
+      },
+    },
+    {
+      id: "all",
+      label: "All",
+      callback: () => {
+        setActive("all");
+        dispatch(fetchTasks({ completed: false }));
+      },
+    },
+    {
+      id: "todo",
+      label: "To Do",
+      callback: () => {
+        setActive("todo");
+        dispatch(fetchTasks({ completed: false }));
+      },
+    },
+    {
+      id: "completed",
+      label: "Completed",
+      callback: () => {
+        setActive("completed");
+        dispatch(fetchTasks({ completed: true }));
+      },
+    },
+  ];
 
   const render = () => {
     if (active == "todo") {
+      // Returns a table of uncompleted task.
       return <TaskTable completed={false} />;
     } else if (active == "all") {
+      // Returns a table of all task (Completed and Uncompleted)
       return <TaskTable completed={null} />;
     } else if (active == "completed") {
+      // Returns completed task only.
       return <TaskTable completed={true} />;
     } else if (active == "new") {
-      return <NewTask callback={() => setActive("all")} />;
+      // Show the new task form.
+      // The callback sets the active window after creating task
+      return <NewTask callback={() => setActive("todo")} />;
     }
   };
   return (
     <div className="card">
-      <div className="flex flex-wrap gap-4">
-        <button
-          className="bg-blue-500 text-white font-bold py-2 px-4 rounded"
-          onClick={() => setActive("new")}
-        >
-          Add a task
-        </button>
-        <button
-          className="bg-blue-500 text-white font-bold py-2 px-4 rounded"
-          onClick={() => {
-            setActive("all");
-            dispatch(fetchTasks({ completed: null }));
-          }}
-        >
-          All
-        </button>
-        <button
-          className="bg-blue-500 text-white font-bold py-2 px-4 rounded"
-          onClick={() => {
-            setActive("todo");
-            dispatch(fetchTasks({ completed: false }));
-          }}
-        >
-          To Do
-        </button>
-        <button
-          className="bg-blue-500 text-white font-bold py-2 px-4 rounded"
-          onClick={() => {
-            setActive("completed");
-            dispatch(fetchTasks({ completed: true }));
-          }}
-        >
-          Completed
-        </button>
+      <div className="flex flex-wrap gap-4 justify-between">
+        {tabs.map((tab) => (
+          <button
+            key={tab.id}
+            className={`font-bold py-2 px-4 rounded ${
+              active == tab.id
+                ? "bg-blue-500 text-white"
+                : "bg-blue-800 text-gray-400"
+            }`}
+            onClick={() => tab.callback()}
+          >
+            {tab.label}
+          </button>
+        ))}
       </div>
       {render()}
     </div>

@@ -28,17 +28,17 @@ const NewTask = (props: Props) => {
   return (
     <div>
       <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
+        <div className="my-5">
           <label
             htmlFor="title"
-            className="block text-sm font-medium text-white mb-1"
+            className="block text-lg font-medium text-white mb-1"
           >
             Title
           </label>
           <input
             type="text"
             id="title"
-            className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            className="w-full p-1 border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
@@ -54,7 +54,7 @@ const NewTask = (props: Props) => {
 
           <textarea
             id="description"
-            className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            className="w-full p-1 border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             required
