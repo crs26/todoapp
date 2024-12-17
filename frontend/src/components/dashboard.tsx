@@ -31,7 +31,7 @@ const Dashboard = () => {
       label: "All",
       callback: () => {
         setActive("all");
-        dispatch(fetchTasks({ completed: false, search: null }));
+        dispatch(fetchTasks({ completed: null, search: null }));
       },
     },
     {
@@ -55,13 +55,13 @@ const Dashboard = () => {
   const render = () => {
     if (active == "todo") {
       // Returns a table of uncompleted task.
-      return <TaskTable completed={false} />;
+      return <TaskTable completed={false} active={active} />;
     } else if (active == "all") {
       // Returns a table of all task (Completed and Uncompleted)
-      return <TaskTable completed={null} />;
+      return <TaskTable completed={null} active={active} />;
     } else if (active == "completed") {
       // Returns completed task only.
-      return <TaskTable completed={true} />;
+      return <TaskTable completed={true} active={active} />;
     } else if (active == "new") {
       // Show the new task form.
       // The callback sets the active window after creating task

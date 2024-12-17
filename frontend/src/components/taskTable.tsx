@@ -13,6 +13,7 @@ import React, { useEffect, useState } from "react";
 
 interface Props {
   completed: boolean | null;
+  active: string;
 }
 
 const TaskTable = (props: Props) => {
@@ -59,25 +60,47 @@ const TaskTable = (props: Props) => {
         <p className="text-center text-gray-500">Loading...</p>
       ) : (
         <div>
-          <form onSubmit={handleSearch}>
-            <div className="inline-flex" role="group">
-              <input
-                type="text"
-                id="username"
-                className=" p-1 border-gray-300 rounded-s-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                value={searchKey}
-                onChange={(e) => setSearchKey(e.target.value)}
-                required
-              />
-              <button
-                type="submit"
-                className=" p-1 bg-blue-500 text-gray-200 rounded-e-lg"
-              >
-                Search Task
-              </button>
-            </div>
-          </form>
-          <table className="min-w-full border-gray-300">
+          <div className="inline-flex align-middle mb-2">
+            {props.active == "all" || props.active == "todo" ? (
+              <div className="mx-4">
+                <p className="text-lg">
+                  {tasks.filter((task) => !task.is_completed).length}
+                </p>
+                <p className="text-xs">Pending</p>
+              </div>
+            ) : (
+              ""
+            )}
+            {props.active == "all" || props.active == "completed" ? (
+              <div className="mx-4">
+                <p className="text-lg">
+                  {tasks.filter((task) => task.is_completed).length}
+                </p>
+                <p className="text-xs">Completed</p>
+              </div>
+            ) : (
+              ""
+            )}
+            <form className="flex items-center" onSubmit={handleSearch}>
+              <div className="inline-flex" role="group">
+                <input
+                  type="text"
+                  id="username"
+                  className=" p-1 border-gray-300 rounded-s-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  value={searchKey}
+                  onChange={(e) => setSearchKey(e.target.value)}
+                  required
+                />
+                <button
+                  type="submit"
+                  className=" p-1 bg-blue-500 text-gray-200 rounded-e-lg"
+                >
+                  Search Task
+                </button>
+              </div>
+            </form>
+          </div>
+          <table className="min-w-full border border-gray-400">
             <thead>
               <tr>
                 <th className="px-4 py-2 border-b text-center">Title</th>
