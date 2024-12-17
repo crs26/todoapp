@@ -18,7 +18,7 @@ const Login = () => {
 
   return (
     <div className="flex items-center justify-center ">
-      <div className=" p-6 rounded-lg shadow-lg w-full ">
+      <div className=" p-6 rounded-lg border shadow-lg w-full ">
         <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -31,7 +31,7 @@ const Login = () => {
             <input
               type="text"
               id="username"
-              className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              className="w-full p-1 border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
@@ -47,7 +47,7 @@ const Login = () => {
             <input
               type="password"
               id="password"
-              className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              className="w-full p-1 border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required

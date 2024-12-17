@@ -70,11 +70,11 @@ const Dashboard = () => {
   };
   return (
     <div className="card">
-      <div className="flex flex-wrap gap-4 justify-between">
+      <div className={`columns-${tabs.length} gap-4`}>
         {tabs.map((tab) => (
           <button
             key={tab.id}
-            className={`font-bold py-2 px-4 rounded ${
+            className={`font-bold py-2 px-4 rounded mx-2 ${
               active == tab.id
                 ? "bg-blue-500 text-white"
                 : "bg-blue-800 text-gray-400"
